@@ -1,5 +1,58 @@
-* {
+*,
+*::after,
+*::before {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+}
+
+:root {
+	--text-color: #293264;
+	--button-color: #4d5b9e;
+	--button-text-color: #f5f7fb;
+}
+
+.app {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	color: var(--text-color);
+}
+
+.accueil {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.accueil h1 {
+	font-family: "Karla", sans-serif;
+	margin-bottom: 1rem;
+}
+.accueil p {
+	margin-bottom: 1rem;
+}
+#blob-lemon {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: -1;
+}
+
+#blob-blue {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: -1;
+}
+
+button {
+	border-radius: 10%;
+	background: var(--button-color);
+	color: var(--button-text-color);
+	border: none;
+	padding: 0.5rem 1rem;
 }
