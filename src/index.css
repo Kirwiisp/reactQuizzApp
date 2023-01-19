@@ -1,3 +1,4 @@
+/* Bases */
 *,
 *::after,
 *::before {
@@ -10,7 +11,11 @@
 	--text-color: #293264;
 	--button-color: #4d5b9e;
 	--button-text-color: #f5f7fb;
+	--button-answer-bg: #f5f7fb;
+	--button-border: #4d5b9e;
 }
+
+/* App */
 
 .app {
 	width: 100vw;
@@ -20,21 +25,9 @@
 	align-items: center;
 	overflow: hidden;
 	color: var(--text-color);
+	font-family: "Inter", sans-serif;
 }
 
-.accueil {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-.accueil h1 {
-	font-family: "Karla", sans-serif;
-	margin-bottom: 1rem;
-}
-.accueil p {
-	margin-bottom: 1rem;
-}
 #blob-lemon {
 	position: absolute;
 	top: 0;
@@ -49,10 +42,68 @@
 	z-index: -1;
 }
 
+/* Accueil  */
+
+.accueil {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.accueil h1 {
+	font-family: "Karla", sans-serif;
+	margin-bottom: 1rem;
+}
+.accueil p {
+	margin-bottom: 1rem;
+}
+
+/* Quizz*/
+
+.quizz {
+	padding: 4rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	overflow: scroll;
+}
+
+hr {
+	margin: 15px 0;
+}
+
+.answers {
+	display: flex;
+	gap: 1rem;
+	margin: 1rem 0;
+}
+/* Question */
+
+.question h1 {
+	font-family: "Karla", sans-serif;
+}
+
+/* Buttons */
 button {
-	border-radius: 10%;
+	border-radius: 10px;
+	border: none;
+	font-family: "Inter", sans-serif;
+}
+
+.button-main {
 	background: var(--button-color);
 	color: var(--button-text-color);
-	border: none;
 	padding: 0.5rem 1rem;
+	font-weight: 600;
+}
+
+.button-check {
+	align-self: center;
+}
+
+.button-answer {
+	padding: 0.5rem;
+	border: 1px solid var(--button-border);
+	background: none;
 }
