@@ -1,0 +1,49 @@
+{
+	"response_code": 0,
+	"results": [
+		{
+			"category": "Entertainment: Music",
+			"type": "multiple",
+			"difficulty": "medium",
+			"question": "Who is the lead singer of Silverchair?",
+			"correct_answer": "Daniel Johns",
+			"incorrect_answers": ["Ben Gillies", "Chris Joannou", "George Costanza"]
+		},
+		{
+			"category": "History",
+			"type": "multiple",
+			"difficulty": "hard",
+			"question": "When was Adolf Hitler appointed as Chancellor of Germany?",
+			"correct_answer": "January 30, 1933",
+			"incorrect_answers": [
+				"September 1, 1939",
+				"February 27, 1933",
+				"October 6, 1939"
+			]
+		},
+		{
+			"category": "Entertainment: Video Games",
+			"type": "multiple",
+			"difficulty": "medium",
+			"question": "Who created the pump &quot;F.L.U.D.D.&quot; Mario uses in Super Mario Sunshine?",
+			"correct_answer": "Elvin Gadd",
+			"incorrect_answers": ["Robert Fludd", "Nirona", "Crygor"]
+		},
+		{
+			"category": "Entertainment: Books",
+			"type": "multiple",
+			"difficulty": "easy",
+			"question": "What is the name of the three headed dog in Harry Potter and the Sorcerer&#039;s Stone?",
+			"correct_answer": "Fluffy",
+			"incorrect_answers": ["Spike", "Poofy", "Spot"]
+		},
+		{
+			"category": "Entertainment: Film",
+			"type": "multiple",
+			"difficulty": "medium",
+			"question": "In which movie does Robin Williams&#039; character have to disguise themselves into a woman?",
+			"correct_answer": "Mrs. Doubtfire",
+			"incorrect_answers": ["Old Dogs", "Jumanji", "Awakenings"]
+		}
+	]
+}
