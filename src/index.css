@@ -30,6 +30,7 @@
 
 #blob-lemon {
 	position: absolute;
+	max-width: 100%;
 	top: 0;
 	right: 0;
 	z-index: -1;
@@ -37,6 +38,7 @@
 
 #blob-blue {
 	position: absolute;
+	max-width: 100%;
 	bottom: 0;
 	left: 0;
 	z-index: -1;
@@ -88,6 +90,7 @@ hr {
 button {
 	border-radius: 10px;
 	border: none;
+	color: var(--text-color);
 	font-family: "Inter", sans-serif;
 }
 
@@ -103,7 +106,22 @@ button {
 }
 
 .button-answer {
-	padding: 0.5rem;
+	padding: 0.5rem 0.7rem;
 	border: 1px solid var(--button-border);
 	background: none;
+}
+.clicked {
+	background: #d6dbf5;
+	border: none;
+}
+.good {
+	background: #94d7a2;
+	border: none;
+}
+.wrong {
+	background: #f8bcbc;
+	border: none;
+}
+.faded {
+	opacity: 0.5;
 }
