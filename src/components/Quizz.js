@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import dataJson from "../dataExemple.json";
 import Question from "./Question";
 
 export default function Quizz() {
@@ -12,31 +11,70 @@ export default function Quizz() {
 	 *
 	 */
 
-	// useEffect(() => {
-	// 	const tempData = fetch("https://opentdb.com/api.php?amount=5")
-	// 		.then((res) => res.json())
-	// 		.then((dataInput) => setData(dataInput));
-	// 	console.log(data);
-	// }, []);
-
-	console.log("render Quizz");
-
 	useEffect(() => {
 		const isClicked = "";
-		setData(
-			dataJson.results.map((e) => ({
-				question: e.question,
-				correctAnswer: e.correct_answer,
-				array: shuffleArray([
-					{ answer: e.correct_answer, isClicked: isClicked },
-					...e.incorrect_answers.map((e) => ({
-						answer: e,
-						isClicked: isClicked,
-					})),
-				]),
-			}))
-		);
+		try {
+			console.log("Init fetch");
+			fetch("https://opentdb.com/api.php?amount=5")
+				.then((res) => {
+					console.log(res);
+					return res.json();
+				})
+				.then((dataInput) => {
+					console.log(dataInput.results);
+					setData(
+						dataInput.results.map((e) => ({
+							question: e.question
+								.replace(/&quot;/g, '"')
+								.replace(/&#039;/g, "'")
+								.replace(/&minus;/g, "-")
+								.replace(/&amp;/g, ":"),
+							correctAnswer: e.correct_answer
+								.replace(/&quot;/g, '"')
+								.replace(/&amp;/g, ":")
+								.replace(/&minus;/g, "-")
+								.replace(/&#039;/g, "'"),
+							array: shuffleArray([
+								{
+									answer: e.correct_answer
+										.replace(/&quot;/g, '"')
+										.replace(/&amp;/g, ":")
+										.replace(/&minus;/g, "-")
+										.replace(/&#039;/g, "'"),
+									isClicked: isClicked,
+								},
+								...e.incorrect_answers.map((e) => ({
+									answer: e
+										.replace(/&quot;/g, '"')
+										.replace(/&amp;/g, ":")
+										.replace(/&minus;/g, "-")
+										.replace(/&#039;/g, "'"),
+									isClicked: isClicked,
+								})),
+							]),
+						}))
+					);
+				});
+		} catch (error) {
+			console.log(error);
+		}
 	}, []);
+
+	// useEffect(() => {
+	// 	setData(
+	// 		data.results.map((e) => ({
+	// 			question: e.question,
+	// 			correctAnswer: e.correct_answer,
+	// 			array: shuffleArray([
+	// 				{ answer: e.correct_answer, isClicked: isClicked },
+	// 				...e.incorrect_answers.map((e) => ({
+	// 					answer: e,
+	// 					isClicked: isClicked,
+	// 				})),
+	// 			]),
+	// 		}))
+	// 	);
+	// }, []);
 
 	function shuffleArray(arr) {
 		const tempArr = arr.map((e) => e);
@@ -48,7 +86,6 @@ export default function Quizz() {
 		}
 		return tempArr;
 	}
-	data.forEach((e) => console.log(shuffleArray(e.array)));
 
 	function handleClick(question, inputIndex) {
 		setData((prevData) =>
@@ -66,7 +103,6 @@ export default function Quizz() {
 	}
 
 	function checkAnswers() {
-		console.log("check");
 		setData((prevData) =>
 			prevData.map((e) => ({
 				...e,
@@ -91,13 +127,19 @@ export default function Quizz() {
 			handleClick={handleClick}
 		/>
 	));
-
+	const loading = data.length === 0;
 	return (
 		<div className="quizz">
-			{questionsToRender}
-			<button className="button-check button-main" onClick={checkAnswers}>
-				Check Answers
-			</button>
+			{loading ? (
+				<h1>loading</h1>
+			) : (
+				<>
+					{questionsToRender}
+					<button className="button-check button-main" onClick={checkAnswers}>
+						Check Answers
+					</button>
+				</>
+			)}
 		</div>
 	);
 }

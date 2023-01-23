@@ -6,6 +6,11 @@
 	margin: 0;
 	box-sizing: border-box;
 }
+html,
+body {
+	height: 100%;
+	width: 100%;
+}
 
 :root {
 	--text-color: #293264;
@@ -15,21 +20,24 @@
 	--button-border: #4d5b9e;
 }
 
+#root {
+	overflow: hidden;
+}
 /* App */
 
 .app {
-	width: 100vw;
-	height: 100vh;
+	min-height: 100vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	overflow: hidden;
 	color: var(--text-color);
 	font-family: "Inter", sans-serif;
+	padding: 0 10%;
 }
 
 #blob-lemon {
-	position: absolute;
+	position: fixed;
 	max-width: 100%;
 	top: 0;
 	right: 0;
@@ -37,7 +45,7 @@
 }
 
 #blob-blue {
-	position: absolute;
+	position: fixed;
 	max-width: 100%;
 	bottom: 0;
 	left: 0;
@@ -68,7 +76,6 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: flex-start;
-	overflow: scroll;
 }
 
 hr {

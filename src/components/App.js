@@ -8,7 +8,6 @@ export default function App() {
 	const [quizz, setQuizz] = useState(false);
 
 	function toggle() {
-		console.log("toggle");
 		setQuizz((prevQuizz) => !prevQuizz);
 	}
 	return (
