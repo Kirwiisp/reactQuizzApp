@@ -11,44 +11,33 @@ export default function Quizz() {
 	 *
 	 */
 
+	function toUTF8(txt) {
+		return txt
+			.replace(/&quot;/g, '"')
+			.replace(/&#039;/g, "'")
+			.replace(/&minus;/g, "-")
+			.replace(/&amp;/g, ":");
+	}
 	useEffect(() => {
 		const isClicked = "";
 		try {
 			console.log("Init fetch");
 			fetch("https://opentdb.com/api.php?amount=5")
 				.then((res) => {
-					console.log(res);
 					return res.json();
 				})
 				.then((dataInput) => {
-					console.log(dataInput.results);
 					setData(
 						dataInput.results.map((e) => ({
-							question: e.question
-								.replace(/&quot;/g, '"')
-								.replace(/&#039;/g, "'")
-								.replace(/&minus;/g, "-")
-								.replace(/&amp;/g, ":"),
-							correctAnswer: e.correct_answer
-								.replace(/&quot;/g, '"')
-								.replace(/&amp;/g, ":")
-								.replace(/&minus;/g, "-")
-								.replace(/&#039;/g, "'"),
+							question: toUTF8(e.question),
+							correctAnswer: toUTF8(e.correct_answer),
 							array: shuffleArray([
 								{
-									answer: e.correct_answer
-										.replace(/&quot;/g, '"')
-										.replace(/&amp;/g, ":")
-										.replace(/&minus;/g, "-")
-										.replace(/&#039;/g, "'"),
+									answer: toUTF8(e.correct_answer),
 									isClicked: isClicked,
 								},
 								...e.incorrect_answers.map((e) => ({
-									answer: e
-										.replace(/&quot;/g, '"')
-										.replace(/&amp;/g, ":")
-										.replace(/&minus;/g, "-")
-										.replace(/&#039;/g, "'"),
+									answer: toUTF8(e),
 									isClicked: isClicked,
 								})),
 							]),
