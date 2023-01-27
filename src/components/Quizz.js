@@ -120,7 +120,6 @@ export default function Quizz() {
 			checking={checking}
 		/>
 	));
-	console.log(game);
 	return (
 		<div className="quizz">
 			{loading ? (
