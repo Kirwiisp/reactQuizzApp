@@ -3,10 +3,20 @@ import Question from "./Question";
 
 export default function Quizz() {
 	const [data, setData] = useState([]);
+	const [checking, setChecking] = useState(false);
+	const [game, setGame] = useState([]);
+	const loading = data.length === 0;
+
+	function scoring() {
+		let score = 0;
+		data.map((question) =>
+			question.array.map((e) => {
+				if (e.isClicked && e.answer == question.correctAnswer) score++;
+			})
+		);
+		return score;
+	}
 	/**
-	 * Fetch questions data
-	 * TODO : uncomment, temporary use of dataExemple
-	 *
 	 * API url : https://opentdb.com/api_config.php
 	 *
 	 */
@@ -16,10 +26,16 @@ export default function Quizz() {
 			.replace(/&quot;/g, '"')
 			.replace(/&#039;/g, "'")
 			.replace(/&minus;/g, "-")
-			.replace(/&amp;/g, ":");
+			.replace(/&amp;/g, ":")
+			.replace(/&oacute/g, "ó");
+	}
+
+	function newQuizz() {
+		setGame((prev) => [...prev, data]);
+		setData([]);
+		setChecking(false);
 	}
 	useEffect(() => {
-		const isClicked = "";
 		try {
 			console.log("Init fetch");
 			fetch("https://opentdb.com/api.php?amount=5")
@@ -34,11 +50,13 @@ export default function Quizz() {
 							array: shuffleArray([
 								{
 									answer: toUTF8(e.correct_answer),
-									isClicked: isClicked,
+									isClicked: false,
+									isCorrect: false,
 								},
 								...e.incorrect_answers.map((e) => ({
 									answer: toUTF8(e),
-									isClicked: isClicked,
+									isClicked: false,
+									isCorrect: false,
 								})),
 							]),
 						}))
@@ -47,23 +65,7 @@ export default function Quizz() {
 		} catch (error) {
 			console.log(error);
 		}
-	}, []);
-
-	// useEffect(() => {
-	// 	setData(
-	// 		data.results.map((e) => ({
-	// 			question: e.question,
-	// 			correctAnswer: e.correct_answer,
-	// 			array: shuffleArray([
-	// 				{ answer: e.correct_answer, isClicked: isClicked },
-	// 				...e.incorrect_answers.map((e) => ({
-	// 					answer: e,
-	// 					isClicked: isClicked,
-	// 				})),
-	// 			]),
-	// 		}))
-	// 	);
-	// }, []);
+	}, [game]);
 
 	function shuffleArray(arr) {
 		const tempArr = arr.map((e) => e);
@@ -85,22 +87,23 @@ export default function Quizz() {
 						? e.array
 						: e.array.map((ob, index) => ({
 								...ob,
-								isClicked: index !== inputIndex ? "" : "clicked",
+								isClicked: index === inputIndex ? true : false,
 						  })),
 			}))
 		);
 	}
 
 	function checkAnswers() {
+		setChecking(true);
 		setData((prevData) =>
 			prevData.map((e) => ({
 				...e,
 				array: e.array.map((ans) => ({
 					...ans,
-					isClicked:
+					isCorrect:
 						ans.answer === e.correctAnswer
 							? "good"
-							: ans.isClicked === "clicked"
+							: ans.isClicked
 							? "wrong"
 							: "faded",
 				})),
@@ -114,9 +117,10 @@ export default function Quizz() {
 			answerArray={e.array}
 			key={e.question}
 			handleClick={handleClick}
+			checking={checking}
 		/>
 	));
-	const loading = data.length === 0;
+	console.log(game);
 	return (
 		<div className="quizz">
 			{loading ? (
@@ -124,9 +128,24 @@ export default function Quizz() {
 			) : (
 				<>
 					{questionsToRender}
-					<button className="button-check button-main" onClick={checkAnswers}>
-						Check Answers
-					</button>
+					{!checking && (
+						<button className="button-check button-main" onClick={checkAnswers}>
+							Check Answers
+						</button>
+					)}
+					{checking && (
+						<div className="scoreCredit">
+							<h1>
+								Score : {scoring()} / {data.length}
+							</h1>
+							<button
+								className="button-check button-main newQuizz"
+								onClick={newQuizz}
+							>
+								New Quizz
+							</button>
+						</div>
+					)}
 				</>
 			)}
 		</div>

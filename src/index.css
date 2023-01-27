@@ -132,3 +132,12 @@ button {
 .faded {
 	opacity: 0.5;
 }
+.scoreCredit {
+	display: flex;
+	align-self: center;
+	gap: 1rem;
+}
+
+.newQuizz {
+	padding: 0.6rem 1rem;
+}
